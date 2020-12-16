@@ -1,6 +1,6 @@
 # zoft.TinyMvvmExtensions
 
-Extension library built on top of the awesome TinyMvvm framework in a similar I've done in the [MvxExtensions](https://github.com/zleao/MvvmCross-Extensions/tree/master/Libraries/MvxExtensions) library. Provides extra functionalites for ViewModels.
+Extension library built on top of the awesome TinyMvvm library. Similar apporach to what I've done in the [MvxExtensions](https://github.com/zleao/MvvmCross-Extensions/tree/master/Libraries/MvxExtensions) library. Provides extra functionalites for ViewModels.
 
 ### A bit of context:
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,7 +7,7 @@
       Provides extra functionalites for ViewModels
       For more info check the documentation
     </Description>
-    <PackageTags>netstandard2.0 observable mvvm mvvmhelper xamarin xamarin.forms</PackageTags>
+    <PackageTags>netstandard2.0 mvvm mvvmhelper xamarin xamarin.forms tinymvvm tinymvvmextensions zoft</PackageTags>
     <PackageProjectUrl>https://github.com/zleao/zoft.TinyMvvmExtensions</PackageProjectUrl>
   </PropertyGroup>
 
