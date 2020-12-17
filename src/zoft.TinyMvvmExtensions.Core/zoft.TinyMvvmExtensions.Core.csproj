@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Extension library built on top of the awesome TinyMvvm framework.
+Provides extra functionalities for ViewModels, including:
+- Dependency notification propagation via attributes
+- WeakSubscriptions
+- Command and AsyncCommand
+For more info check the documentation</Description>
+    <PackageTags>netstandard2.0 mvvm mvvmhelper xamarin xamarin.forms tinymvvm tinymvvmextensions zoft</PackageTags>
+    <PackageProjectUrl>https://github.com/zleao/zoft.TinyMvvmExtensions.Core</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TinyMvvm" Version="3.0.1-pre3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+  </ItemGroup>
+</Project>

@@ -3,9 +3,9 @@
 
 using System;
 using System.Windows.Input;
-using zoft.TinyMvvmExtensions.WeakSubscription;
+using zoft.TinyMvvmExtensions.Core.WeakSubscription;
 
-namespace zoft.TinyMvvmExtensions.Commands
+namespace zoft.TinyMvvmExtensions.Core.Commands
 {
     /// <summary>
     /// Generic Implementation of ICommand

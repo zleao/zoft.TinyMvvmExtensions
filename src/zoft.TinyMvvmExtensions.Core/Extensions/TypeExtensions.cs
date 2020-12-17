@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for Type

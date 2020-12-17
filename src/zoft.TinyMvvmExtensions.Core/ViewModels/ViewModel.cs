@@ -8,13 +8,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using TinyMvvm;
 using Xamarin.Essentials;
-using zoft.TinyMvvmExtensions.Attributes;
-using zoft.TinyMvvmExtensions.Commands;
-using zoft.TinyMvvmExtensions.Extensions;
-using zoft.TinyMvvmExtensions.Models;
-using zoft.TinyMvvmExtensions.WeakSubscription;
+using zoft.TinyMvvmExtensions.Core.Attributes;
+using zoft.TinyMvvmExtensions.Core.Commands;
+using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.Models;
+using zoft.TinyMvvmExtensions.Core.WeakSubscription;
 
-namespace zoft.TinyMvvmExtensions.ViewModels
+namespace zoft.TinyMvvmExtensions.Core.ViewModels
 {
     /// <summary>
     /// Base viewmodel, built on top of <see cref="MvvmHelpers.BaseViewModel"/>

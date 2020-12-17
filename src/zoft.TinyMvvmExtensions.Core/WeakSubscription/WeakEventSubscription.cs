@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace zoft.TinyMvvmExtensions.WeakSubscription
+namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
     public class WeakEventSubscription<TSource, TEventArgs> : IDisposable
         where TSource : class

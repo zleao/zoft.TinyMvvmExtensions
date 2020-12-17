@@ -5,10 +5,10 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using zoft.TinyMvvmExtensions.Extensions;
-using zoft.TinyMvvmExtensions.WeakSubscription;
+using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.WeakSubscription;
 
-namespace zoft.TinyMvvmExtensions.Commands
+namespace zoft.TinyMvvmExtensions.Core.Commands
 {
     /// <summary>
     /// Implementation of an Async Command

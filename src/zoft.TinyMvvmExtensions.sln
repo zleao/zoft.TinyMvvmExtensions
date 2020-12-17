@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Directory.build.props = ..\Directory.build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zoft.TinyMvvmExtensions.Core", "zoft.TinyMvvmExtensions.Core\zoft.TinyMvvmExtensions.Core.csproj", "{546620E6-BF50-4BFF-8B8A-05EA9D429048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{6C1EF502-CFE4-4759-892D-91B47A162763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C1EF502-CFE4-4759-892D-91B47A162763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C1EF502-CFE4-4759-892D-91B47A162763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546620E6-BF50-4BFF-8B8A-05EA9D429048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546620E6-BF50-4BFF-8B8A-05EA9D429048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546620E6-BF50-4BFF-8B8A-05EA9D429048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546620E6-BF50-4BFF-8B8A-05EA9D429048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

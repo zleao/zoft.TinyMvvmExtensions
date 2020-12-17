@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for object type

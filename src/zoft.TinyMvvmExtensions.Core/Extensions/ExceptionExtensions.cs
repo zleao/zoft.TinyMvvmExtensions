@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for Exception type

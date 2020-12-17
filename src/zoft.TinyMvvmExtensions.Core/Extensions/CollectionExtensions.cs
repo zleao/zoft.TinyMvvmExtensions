@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for ICollection type

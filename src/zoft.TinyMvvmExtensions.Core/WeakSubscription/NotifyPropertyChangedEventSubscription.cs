@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace zoft.TinyMvvmExtensions.WeakSubscription
+namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
     public class NotifyPropertyChangedEventSubscription
         : WeakEventSubscription<INotifyPropertyChanged, PropertyChangedEventArgs>

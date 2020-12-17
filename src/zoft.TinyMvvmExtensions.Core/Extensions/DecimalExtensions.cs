@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions ofr decimal type

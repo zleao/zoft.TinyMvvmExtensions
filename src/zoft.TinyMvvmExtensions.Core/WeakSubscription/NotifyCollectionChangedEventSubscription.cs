@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Reflection;
 
-namespace zoft.TinyMvvmExtensions.WeakSubscription
+namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
     public class NotifyCollectionChangedEventSubscription
         : WeakEventSubscription<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>

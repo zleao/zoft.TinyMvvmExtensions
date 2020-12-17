@@ -3,9 +3,9 @@
 
 using System;
 using System.Reflection;
-using zoft.TinyMvvmExtensions.Exceptions;
+using zoft.TinyMvvmExtensions.Core.Exceptions;
 
-namespace zoft.TinyMvvmExtensions.Commands
+namespace zoft.TinyMvvmExtensions.Core.Commands
 {
     internal static class CommandUtils
 	{

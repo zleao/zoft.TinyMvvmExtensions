@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.String;
 
-namespace zoft.TinyMvvmExtensions.WeakSubscription
+namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
     /// <summary>
     /// Weak event manager to subscribe and unsubscribe from events.

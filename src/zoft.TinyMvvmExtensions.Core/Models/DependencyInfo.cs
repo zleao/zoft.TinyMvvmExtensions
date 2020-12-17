@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using zoft.TinyMvvmExtensions.Attributes;
+using zoft.TinyMvvmExtensions.Core.Attributes;
 
-namespace zoft.TinyMvvmExtensions.Models
+namespace zoft.TinyMvvmExtensions.Core.Models
 {
     /// <summary>
     /// Represents a dependency injected with the <see cref="DependsOnAttribute"/>

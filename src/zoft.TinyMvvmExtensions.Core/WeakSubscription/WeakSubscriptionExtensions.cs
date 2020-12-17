@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace zoft.TinyMvvmExtensions.WeakSubscription
+namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
     public static class WeakSubscriptionExtensions
     {

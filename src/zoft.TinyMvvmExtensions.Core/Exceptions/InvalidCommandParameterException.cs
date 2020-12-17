@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace zoft.TinyMvvmExtensions.Exceptions
+namespace zoft.TinyMvvmExtensions.Core.Exceptions
 {
     /// <summary>
     /// Represents errors that occur during IAsyncCommand execution.

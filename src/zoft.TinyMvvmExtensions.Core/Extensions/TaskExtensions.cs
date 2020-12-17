@@ -4,7 +4,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace zoft.TinyMvvmExtensions.Extensions
+namespace zoft.TinyMvvmExtensions.Core.Extensions
 {
     /// <summary>
     /// Extension for tasks
