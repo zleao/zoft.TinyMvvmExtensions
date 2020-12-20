@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Extension library built on top of the awesome TinyMvvm framework.
 Provides extra functionalities for ViewModels, including:
-- Dependency notification propagation via attributes
+- Dependency notification propagation via attributes (DependsOn)
 - WeakSubscriptions
-- Command and AsyncCommand
+- SyncCommand and AsyncCommand
 - zoft.NotificationService
 - Localization service
 For more info check the documentation</Description>
