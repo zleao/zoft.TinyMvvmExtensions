@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+               xmlns:vm="clr-namespace:ClassicForms.ViewModels"
+               x:Class="ClassicForms.Views.BindingsTestPage" x:TypeArguments="vm:BindingsTestViewModel">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10,0,10,0">
+                <Label Text="First and Last name wil me automagically merged into a full name" 
+                       FontAttributes="Bold"/>
+                <Entry Placeholder="First Name" Text="{Binding FirstName}"/>
+                <Entry Placeholder="Last Name" Text="{Binding LastName}"/>
+                <Label Text="{Binding FullName}"/>
+                <Label Text="Text not emtpy, controls the availability of the button" 
+                       FontAttributes="Bold" 
+                       Margin="0,20,0,0"/>
+                <Entry Placeholder="Write some text" Text="{Binding Text}"/>
+                <Button Text="Show Text" Command="{Binding ShowTextCommand}"/>
+                <Label Text="Each key stroke will trigger a method that will show the last char of the text (if exsits)"
+                       FontAttributes="Bold"
+                       Margin="0,20,0,0"/>
+                <Entry Text="{Binding TextForStrokes}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</mvvm:ViewBase>
