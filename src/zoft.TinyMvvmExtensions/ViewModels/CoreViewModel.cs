@@ -83,14 +83,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         private readonly Dictionary<string, IList<DependencyInfo>> _propertyDependencies = new Dictionary<string, IList<DependencyInfo>>();
 
         /// <summary>
-        /// List of all the notifiable collections properties that have the PropagateCollectionChange attribute configured
+        /// List of all the notifiable collection properties that have the PropagateCollectionChange attribute configured, with the respective CollectionChanged subscription
         /// </summary>
-        private readonly Dictionary<string, INotifyCollectionChanged> _notifiableCollectionsPropertyDependencies = new Dictionary<string, INotifyCollectionChanged>();
-
-        /// <summary>
-        /// List that holds the CollectionChanged subscriptions of NotifiableColelctions that have the PropagateCollectionChange attribute configured
-        /// </summary>
-        private readonly Dictionary<string, NotifyCollectionChangedEventSubscription> _notifiableCollectionsChangedSubscription = new Dictionary<string, NotifyCollectionChangedEventSubscription>();
+        private readonly Dictionary<string, CollectionSubscriptionInfo> _notifiableCollectionsPropertyDependencies = new Dictionary<string, CollectionSubscriptionInfo>();
 
         /// <summary>
         /// List of all the methods that have DependsOn attribute configured
@@ -137,11 +132,7 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         lock (_notifiableCollectionsPropertyDependencies)
                         {
                             var collection = property.GetValue(this, null) as INotifyCollectionChanged;
-                            _notifiableCollectionsPropertyDependencies.Add(property.Name, collection);
-                        }
-                        lock (_notifiableCollectionsChangedSubscription)
-                        {
-                            _notifiableCollectionsChangedSubscription.Add(property.Name, null);
+                            _notifiableCollectionsPropertyDependencies.Add(property.Name, new CollectionSubscriptionInfo { Collection = collection });
                         }
                     }
                 }
@@ -198,8 +189,10 @@ namespace zoft.TinyMvvmExtensions.ViewModels
 
                 foreach (var item in _notifiableCollectionsPropertyDependencies)
                 {
-                    if (item.Value != null)
-                        _notifiableCollectionsChangedSubscription[item.Key] = item.Value.WeakSubscribe(OnCollectionChanged);
+                    if (item.Value.Collection != null)
+                    {
+                        item.Value.CollectionChangedSubscription = item.Value.Collection.WeakSubscribe(OnCollectionChanged);
+                    }
                 }
             }
         }
@@ -224,20 +217,23 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         /// <param name="propertyName">Name of the property.</param>
         private void UpdateCollectionPropertyValue(string propertyName)
         {
-            if (_notifiableCollectionsPropertyDependencies.TryGetValue(propertyName, out var collection))
+            if (_notifiableCollectionsPropertyDependencies.TryGetValue(propertyName, out var collectionSubscriptionInfo))
             {
                 var senderCollection = this.GetPropertyValue(propertyName) as INotifyCollectionChanged;
-                if (!ReferenceEquals(collection, senderCollection))
+                if (!ReferenceEquals(collectionSubscriptionInfo.Collection, senderCollection))
                 {
                     //Remove previous subscription
-                    _notifiableCollectionsChangedSubscription[propertyName]?.Dispose();
-                    _notifiableCollectionsChangedSubscription[propertyName] = null;
+                    collectionSubscriptionInfo.CollectionChangedSubscription?.Dispose();
+                    collectionSubscriptionInfo.CollectionChangedSubscription = null;
 
                     //Add new subscription
                     if (senderCollection != null)
-                        _notifiableCollectionsChangedSubscription[propertyName] = senderCollection.WeakSubscribe(OnCollectionChanged);
+                    {
+                        collectionSubscriptionInfo.CollectionChangedSubscription = senderCollection.WeakSubscribe(OnCollectionChanged);
+                    }
 
-                    _notifiableCollectionsPropertyDependencies[propertyName] = senderCollection;
+                    //UPdate collection reference
+                    collectionSubscriptionInfo.Collection = senderCollection;
                 }
             }
         }
@@ -329,20 +325,19 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         /// </summary>
         private void RemoveCollectionChangedHandlers()
         {
-            foreach (var item in _notifiableCollectionsChangedSubscription)
+            foreach (var item in _notifiableCollectionsPropertyDependencies)
             {
-                if (item.Value == null)
-                    continue;
                 try
                 {
-                    item.Value.Dispose();
+                    item.Value?.CollectionChangedSubscription?.Dispose();
                 }
                 catch (InvalidOperationException)
                 {
                     // This error might occur during dispose.
                 }
             }
-            _notifiableCollectionsChangedSubscription.Clear();
+
+            _notifiableCollectionsPropertyDependencies.Clear();
         }
 
         /// <summary>
