@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -106,6 +106,7 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         {
             foreach (var property in type.GetProperties(true))
             {
+                // Store the property dependencies that where configured in the view model
                 var attributes = property.GetCustomAttributes<DependsOnAttribute>(true);
                 var dependsOnAttributes = attributes as DependsOnAttribute[] ?? attributes.ToArray();
                 if (dependsOnAttributes?.Length > 0)
@@ -118,12 +119,12 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                             {
                                 _propertyDependencies.Add(attribute.Name, new List<DependencyInfo>());
                             }
-
                             _propertyDependencies[attribute.Name].Add(new DependencyInfo(property, attribute.IsConditional));
                         }
                     }
                 }
 
+                // Store the properties that are signaled PropagateCollectionChanged (if applicable)
                 if (typeof(INotifyCollectionChanged).IsAssignableFrom(property.PropertyType))
                 {
                     var attribute = property.GetCustomAttribute<PropagateCollectionChangeAttribute>(true);
@@ -163,7 +164,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         lock (_methodDependencies)
                         {
                             if (!_methodDependencies.ContainsKey(attribute.Name))
+                            {
                                 _methodDependencies.Add(attribute.Name, new List<MethodInfo>());
+                            }
                             _methodDependencies[attribute.Name].Add(method);
                         }
                     }
