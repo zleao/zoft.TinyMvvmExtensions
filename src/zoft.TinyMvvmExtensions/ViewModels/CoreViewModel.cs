@@ -22,16 +22,6 @@ namespace zoft.TinyMvvmExtensions.ViewModels
     /// </summary>
     public abstract class CoreViewModel : ViewModelBase, IDisposable
     {
-        #region Fields
-
-        private volatile Dictionary<string, int> _dependsOnConditionalCount = new Dictionary<string, int>();
-
-        private NotifyPropertyChangedEventSubscription _propertyChangedSubscription;
-        private volatile Dictionary<string, NotifyCollectionChangedEventSubscription> _notifiableCollectionsChangedSubscription =
-            new Dictionary<string, NotifyCollectionChangedEventSubscription>();
-
-        #endregion
-
         #region Base Properties
 
         /// <summary>
@@ -45,7 +35,6 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         }
         private string _title = string.Empty;
 
-
         /// <summary>
         /// Gets or sets the subtitle.
         /// </summary>
@@ -56,7 +45,7 @@ namespace zoft.TinyMvvmExtensions.ViewModels
             set => Set(ref _subtitle, value);
         }
         private string _subtitle = string.Empty;
-        
+
         #endregion
 
         #region Constructor
@@ -79,7 +68,17 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         #region Dependency Management
 
         /// <summary>
-        /// List of all the properties that have the DependsOn attribute configured
+        /// Helper list used to prevent PropertyCHanged propagation in cases where an action is ExecuteWithoutConditionalDependsOn 
+        /// </summary>
+        private readonly Dictionary<string, int> _dependsOnConditionalCount = new Dictionary<string, int>();
+
+        /// <summary>
+        /// PropertyChanged subscriptipn of this instance
+        /// </summary>
+        private NotifyPropertyChangedEventSubscription _propertyChangedSubscription;
+
+        /// <summary>
+        /// List of all the properties that have DependsOn attribute configured
         /// </summary>
         private readonly Dictionary<string, IList<DependencyInfo>> _propertyDependencies = new Dictionary<string, IList<DependencyInfo>>();
 
@@ -89,20 +88,24 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         private readonly Dictionary<string, INotifyCollectionChanged> _notifiableCollectionsPropertyDependencies = new Dictionary<string, INotifyCollectionChanged>();
 
         /// <summary>
-        /// List of all the methods that have the DependsOn attribute configured
+        /// List that holds the CollectionChanged subscriptions of NotifiableColelctions that have the PropagateCollectionChange attribute configured
+        /// </summary>
+        private readonly Dictionary<string, NotifyCollectionChangedEventSubscription> _notifiableCollectionsChangedSubscription = new Dictionary<string, NotifyCollectionChangedEventSubscription>();
+
+        /// <summary>
+        /// List of all the methods that have DependsOn attribute configured
         /// </summary>
         private readonly Dictionary<string, IList<MethodInfo>> _methodDependencies = new Dictionary<string, IList<MethodInfo>>();
 
         /// <summary>
         /// Gets a value indicating whether this instance should react to property changed events
         /// </summary>
-        protected bool HasDependencies => _propertyDependencies != null &&
-                                          (_propertyDependencies.Count > 0 ||
+        protected bool HasDependencies => _propertyDependencies.Count > 0 ||
                                            _notifiableCollectionsPropertyDependencies.Count > 0 ||
-                                           _methodDependencies.Count > 0);
+                                           _methodDependencies.Count > 0;
 
         /// <summary>
-        /// Maps all the properties that have de DependsOn and/or the PropagateCollectionChange attributes configured
+        /// Maps all the properties that have DependsOn and/or PropagateCollectionChange attributes configured
         /// </summary>
         private void InitializePropertyDependencies(Type type)
         {
@@ -117,7 +120,10 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         foreach (var attribute in dependsOnAttributes)
                         {
                             if (!_propertyDependencies.ContainsKey(attribute.Name))
+                            {
                                 _propertyDependencies.Add(attribute.Name, new List<DependencyInfo>());
+                            }
+
                             _propertyDependencies[attribute.Name].Add(new DependencyInfo(property, attribute.IsConditional));
                         }
                     }
@@ -150,7 +156,7 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         }
 
         /// <summary>
-        /// Maps all the methods that have de DependsOn attribute configured
+        /// Maps all the methods that have DependsOn attribute configured
         /// </summary>
         private void InitializeMethodDependencies(Type type)
         {
