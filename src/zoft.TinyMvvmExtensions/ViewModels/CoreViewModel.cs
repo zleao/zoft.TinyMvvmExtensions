@@ -197,6 +197,16 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         item.Value.CollectionChangedSubscription = item.Value.Collection.WeakSubscribe(OnCollectionChanged);
                     }
                 }
+        /// <summary>
+        /// Handles the collection changed events for the notifiable collections marked with the PropagateCollectionChange attribute
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var propertyDependency in _notifiableCollectionsPropertyDependencies.Where(nc => ReferenceEquals(sender, nc.Value.Collection)))
+            {
+                RaiseDependenciesPropertyChanged(propertyDependency.Key);
             }
         }
 
@@ -235,22 +245,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         collectionSubscriptionInfo.CollectionChangedSubscription = senderCollection.WeakSubscribe(OnCollectionChanged);
                     }
 
-                    //UPdate collection reference
+                    //Update collection reference
                     collectionSubscriptionInfo.Collection = senderCollection;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Handles the collection changed events for the notifiable collections marked with the PropagateCollectionChange attribute
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            foreach (var collection in _notifiableCollectionsPropertyDependencies.Where(nc => ReferenceEquals(sender, nc.Value)).OfType<KeyValuePair<string, INotifyCollectionChanged>?>())
-            {
-                RaiseDependenciesPropertyChanged(collection.Value.Key);
             }
         }
 
