@@ -18,6 +18,12 @@ namespace zoft.TinyMvvmExtensions.Validation
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void RaisePropertyChanged()
+        {
+            Item1?.RaisePropertyChanged();
+            Item2?.RaisePropertyChanged();
+        }
+
         public bool Validate()
         {
             var item1IsValid = Item1.Validate();

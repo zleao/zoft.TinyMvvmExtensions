@@ -3,14 +3,18 @@ using System.ComponentModel;
 
 namespace zoft.TinyMvvmExtensions.Validation
 {
-    public interface IValidatable<T> : INotifyPropertyChanged
+    public interface IValidatable : INotifyPropertyChanged
     {
-        List<IValidationRule<T>> Validations { get; }
-
         List<string> Errors { get; set; }
 
         bool Validate();
 
         bool IsValid { get; set; }
+
+        void RaisePropertyChanged();
+    }
+    public interface IValidatable<T> : IValidatable
+    {
+        List<IValidationRule<T>> Validations { get; }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -13,6 +13,7 @@ using zoft.TinyMvvmExtensions.Attributes;
 using zoft.TinyMvvmExtensions.Commands;
 using zoft.TinyMvvmExtensions.Extensions;
 using zoft.TinyMvvmExtensions.Models;
+using zoft.TinyMvvmExtensions.Validation;
 using zoft.TinyMvvmExtensions.WeakSubscription;
 
 namespace zoft.TinyMvvmExtensions.ViewModels
@@ -88,6 +89,12 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         private readonly Dictionary<string, CollectionSubscriptionInfo> _notifiableCollectionsPropertyDependencies = new Dictionary<string, CollectionSubscriptionInfo>();
 
         /// <summary>
+        /// List of the found dependencies (and respective PropertyCahngeEventSubscription) that correspond to an IValidatable object.
+        /// Each subscription will trigger a PropertyChanged of the respective PropertyName
+        /// </summary>
+        private readonly Dictionary<string, ValidatableCollectionInfo> _validatabalePropertyDependencies = new Dictionary<string, ValidatableCollectionInfo>();
+
+        /// <summary>
         /// List of all the methods that have DependsOn attribute configured
         /// </summary>
         private readonly Dictionary<string, IList<MethodInfo>> _methodDependencies = new Dictionary<string, IList<MethodInfo>>();
@@ -115,11 +122,28 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                     {
                         foreach (var attribute in dependsOnAttributes)
                         {
+                            // Store the property dependency with the mapping for the dependent property
                             if (!_propertyDependencies.ContainsKey(attribute.Name))
                             {
                                 _propertyDependencies.Add(attribute.Name, new List<DependencyInfo>());
                             }
                             _propertyDependencies[attribute.Name].Add(new DependencyInfo(property, attribute.IsConditional));
+
+                            // If the property dependency corresponds to a validatable object, 
+                            // we need to update the list of _validatabalePropertyDependencies
+                            // We only need to add one entry per property name
+                            if(!_validatabalePropertyDependencies.ContainsKey(attribute.Name))
+                            {
+                                // Check if the property dependency is a validatable object
+                                var dependencyProperty = type.GetProperty(attribute.Name);
+                                if (dependencyProperty != null && typeof(IValidatable).IsAssignableFrom(dependencyProperty.PropertyType))
+                                {
+                                    // At this point we knwo the dependecy property is a IValidatableObject 
+                                    // and it was not added the list of _validatabalePropertyDependencies
+                                    var validatableObject = dependencyProperty.GetValue(this, null) as IValidatable;
+                                    _validatabalePropertyDependencies.Add(attribute.Name, new ValidatableCollectionInfo { ValidatableObject = validatableObject });
+                                }
+                            }
                         }
                     }
                 }
@@ -197,6 +221,17 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                         item.Value.CollectionChangedSubscription = item.Value.Collection.WeakSubscribe(OnCollectionChanged);
                     }
                 }
+
+                foreach (var item in _validatabalePropertyDependencies)
+                {
+                    if(item.Value.ValidatableObject != null)
+                    {
+                        item.Value.PropertyChangedSubscription = item.Value.ValidatableObject.WeakSubscribe(OnValidatableObjectChanged);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Handles the collection changed events for the notifiable collections marked with the PropagateCollectionChange attribute
         /// </summary>
@@ -211,6 +246,17 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         }
 
         /// <summary>
+        /// Handles the property changed events for the alidatable objects referenced as dependency properties
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void OnValidatableObjectChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var propertyDependency = _validatabalePropertyDependencies.FirstOrDefault(nc => ReferenceEquals(sender, nc.Value.ValidatableObject));
+            RaiseDependenciesPropertyChanged(propertyDependency.Key);
+        }
+
+        /// <summary>
         /// Called when a property raises the <see cref="PropertyChangedEventHandler"/>
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -221,6 +267,7 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                 return;
 
             UpdateCollectionPropertyValue(e.PropertyName);
+            UpdateValidatableObjectPropertyValue(e.PropertyName);
             RaiseDependenciesPropertyChanged(e.PropertyName);
         }
 
@@ -252,11 +299,44 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         }
 
         /// <summary>
+        /// Updates the validatable object property dependency subscription.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        private void UpdateValidatableObjectPropertyValue(string propertyName)
+        {
+            if(_validatabalePropertyDependencies.TryGetValue(propertyName, out var validatableSubscriptionInfo))
+            {
+                var senderValidatable = this.GetPropertyValue(propertyName) as IValidatable;
+                if (!ReferenceEquals(validatableSubscriptionInfo.ValidatableObject, senderValidatable))
+                {
+                    //Remove previous subscription
+                    validatableSubscriptionInfo.PropertyChangedSubscription?.Dispose();
+                    validatableSubscriptionInfo.PropertyChangedSubscription = null;
+
+                    //Add new subscription
+                    if (senderValidatable != null)
+                    {
+                        validatableSubscriptionInfo.PropertyChangedSubscription = senderValidatable.WeakSubscribe(OnValidatableObjectChanged);
+                    }
+
+                    //Update collection reference
+                    validatableSubscriptionInfo.ValidatableObject = senderValidatable;
+                }
+            }
+        }
+
+        /// <summary>
         /// Raises the dependencies property changed.
         /// </summary>
         /// <param name="dependencyName">Name of the dependency.</param>
         public void RaiseDependenciesPropertyChanged(string dependencyName)
         {
+            //Extra protecton for null/empty values
+            if (dependencyName.IsNullOrWhiteSpace())
+            {
+                return;
+            }
+
             // Ensure this method runs in the main thread
             if (!MainThread.IsMainThread)
             {
@@ -280,13 +360,18 @@ namespace zoft.TinyMvvmExtensions.ViewModels
                     {
                         if (typeof(ICommand).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var command = property.Info.GetValue(this, null) as SyncCommand;
-                            command?.RaiseCanExecuteChanged();
+                            var syncCommand = property.Info.GetValue(this, null) as SyncCommand;
+                            syncCommand?.RaiseCanExecuteChanged();
                         }
                         else if (typeof(IAsyncCommand).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var command = property.Info.GetValue(this, null) as AsyncCommand;
-                            command?.RaiseCanExecuteChanged();
+                            var asyncCommand = property.Info.GetValue(this, null) as AsyncCommand;
+                            asyncCommand?.RaiseCanExecuteChanged();
+                        }
+                        else if (typeof(IValidatable).IsAssignableFrom(property.Info.PropertyType))
+                        {
+                            var validatabale = property.Info.GetValue(this, null) as IValidatable;
+                            validatabale.RaisePropertyChanged();
                         }
                         else
                         {
