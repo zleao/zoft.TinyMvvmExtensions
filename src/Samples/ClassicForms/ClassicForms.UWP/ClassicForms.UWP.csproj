@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -158,6 +158,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions.Forms\zoft.TinyMvvmExtensions.Forms.csproj">
+      <Project>{21145761-c9b7-4ba5-8252-8ba92e4c3cc8}</Project>
+      <Name>zoft.TinyMvvmExtensions.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions\zoft.TinyMvvmExtensions.csproj">
       <Project>{6c1ef502-cfe4-4759-892d-91b47a162763}</Project>
       <Name>zoft.TinyMvvmExtensions</Name>
