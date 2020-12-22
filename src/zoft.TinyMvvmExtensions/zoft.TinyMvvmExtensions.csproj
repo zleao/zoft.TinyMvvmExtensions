@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,8 +9,9 @@ Provides extra functionalities for ViewModels, including:
 - SyncCommand and AsyncCommand
 - zoft.NotificationService
 - Localization service
+-IValidatable interface and implementation
 For more info check the documentation</Description>
-    <PackageTags>netstandard2.0 mvvm mvvmhelper xamarin xamarin.forms tinymvvm tinymvvmextensions zoft Localization zoft.NotificationService</PackageTags>
+    <PackageTags>netstandard2.0 mvvm mvvmhelper xamarin xamarin.forms tinymvvm tinymvvmextensions zoft Localization zoft.NotificationService IValidatable</PackageTags>
     <PackageProjectUrl>https://github.com/zleao/zoft.TinyMvvmExtensions</PackageProjectUrl>
   </PropertyGroup>
 
