@@ -65,7 +65,7 @@ namespace zoft.TinyMvvmExtensions.Extensions
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public static T ThrowIfull<T>(this T argument, string propertyName)
+        public static T ThrowIfNull<T>(this T argument, string propertyName)
         {
             if (argument == null)
             {

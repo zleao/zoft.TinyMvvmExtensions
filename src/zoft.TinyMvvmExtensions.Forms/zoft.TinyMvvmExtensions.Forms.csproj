@@ -5,6 +5,7 @@
   <Description>Extension library built on top of the awesome TinyMvvm.Forms framework.
 Provides extra functionalities:
 - Behaviours and Converters to work specifically with the IValidatable interface
+- ExtendedView to pair with the ExtendedViewModel (zoft.TinyMvvmExtensions)
 For more info check the documentation</Description>
     <PackageTags>netstandard2.0 mvvm mvvmhelper xamarin xamarin.forms tinymvvm tinymvvmextensions zoft IValidatable</PackageTags>
     <PackageProjectUrl>https://github.com/zleao/zoft.TinyMvvmExtensions</PackageProjectUrl>
@@ -20,6 +21,7 @@ For more info check the documentation</Description>
   <ItemGroup>
     <PackageReference Include="TinyMvvm.Forms" Version="3.0.1-pre3" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+    <PackageReference Include="zoft.NotificationService" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
