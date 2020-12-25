@@ -23,6 +23,7 @@ namespace ClassicForms.ViewModels
                 new MenuOption ("Home", nameof(HomePage)),
                 new MenuOption ("Bindings Test", nameof(BindingsTestPage)),
                 new MenuOption ("Validations", nameof(ValidationsPage)),
+                new MenuOption ("Notifications", nameof(NotificationsPage)),
             });
         }
 
@@ -33,6 +34,10 @@ namespace ClassicForms.ViewModels
                 if(menuOption.PageKey == nameof(HomePage))
                 {
                     Navigation.ResetStackWith(menuOption.PageKey);
+                }
+                if (menuOption.PageKey == nameof(NotificationsPage))
+                {
+                    Navigation.NavigateToAsync(menuOption.PageKey, typeof(HomeViewModel).Name);
                 }
                 else
                 {

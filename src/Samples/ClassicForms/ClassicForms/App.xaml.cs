@@ -5,6 +5,7 @@ using TinyMvvm.Autofac;
 using TinyMvvm.Forms;
 using TinyMvvm.IoC;
 using Xamarin.Forms;
+using zoft.NotificationService;
 using zoft.TinyMvvmExtensions.ViewModels;
 
 namespace ClassicForms
@@ -30,6 +31,8 @@ namespace ClassicForms
 
             containerBuilder.RegisterAssemblyTypes(currentAssembly)
                    .Where(x => x.IsSubclassOf(typeof(CoreViewModel)));
+
+            containerBuilder.RegisterType<NotificationManager>().As<INotificationService>().SingleInstance();
 
             var container = containerBuilder.Build();
             

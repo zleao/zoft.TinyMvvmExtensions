@@ -3,13 +3,16 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    xmlns:mvvm="clr-namespace:zoft.TinyMvvmExtensions.Forms;assembly=zoft.TinyMvvmExtensions.Forms"
                    xmlns:vm="clr-namespace:ClassicForms.ViewModels"
-                   x:Class="ClassicForms.Views.HomePage" x:TypeArguments="vm:HomeViewModel"
+                   x:Class="ClassicForms.Views.NotificationsPage" x:TypeArguments="vm:NotificationsViewModel"
                    Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="TinyMvvmExtensions Home Page"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+            <Button Text="ErrorNotification" 
+                    Command="{Binding ErrorNotificationCommand}"/>
+            <Button Text="QuestionNotification" 
+                    Command="{Binding QuestionNotificationCommand}"/>
+            <Button Text="DelayedNotification" 
+                    Command="{Binding DelayedNotificationCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </mvvm:ExtendedPage>
