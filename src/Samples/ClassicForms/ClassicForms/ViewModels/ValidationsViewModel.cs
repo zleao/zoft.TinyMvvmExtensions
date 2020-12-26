@@ -1,11 +1,11 @@
 ﻿using Acr.UserDialogs;
 using System;
 using System.Windows.Input;
-using zoft.TinyMvvmExtensions.Attributes;
-using zoft.TinyMvvmExtensions.Commands;
-using zoft.TinyMvvmExtensions.Validation;
-using zoft.TinyMvvmExtensions.Validation.Rules;
-using zoft.TinyMvvmExtensions.ViewModels;
+using zoft.TinyMvvmExtensions.Core.Attributes;
+using zoft.TinyMvvmExtensions.Core.Commands;
+using zoft.TinyMvvmExtensions.Core.Validation;
+using zoft.TinyMvvmExtensions.Core.Validation.Rules;
+using zoft.TinyMvvmExtensions.Core.ViewModels;
 
 namespace ClassicForms.ViewModels
 {

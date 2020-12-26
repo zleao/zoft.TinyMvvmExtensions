@@ -1,7 +1,7 @@
 ﻿using ClassicForms.Models;
 using ClassicForms.Views;
 using System.Collections.ObjectModel;
-using zoft.TinyMvvmExtensions.ViewModels;
+using zoft.TinyMvvmExtensions.Core.ViewModels;
 
 namespace ClassicForms.ViewModels
 {

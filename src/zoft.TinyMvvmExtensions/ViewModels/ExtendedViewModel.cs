@@ -10,7 +10,8 @@ using zoft.NotificationService.Messages.Base;
 using zoft.NotificationService.Messages.OneWay;
 using zoft.NotificationService.Messages.TwoWay;
 using zoft.NotificationService.Messages.TwoWay.Result;
-using zoft.TinyMvvmExtensions.Extensions;
+using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.ViewModels;
 using zoft.TinyMvvmExtensions.Models;
 
 namespace zoft.TinyMvvmExtensions.ViewModels

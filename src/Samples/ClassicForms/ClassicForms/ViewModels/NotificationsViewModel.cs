@@ -3,7 +3,7 @@ using System.Windows.Input;
 using zoft.NotificationService;
 using zoft.NotificationService.Messages;
 using zoft.NotificationService.Messages.TwoWay.Question;
-using zoft.TinyMvvmExtensions.Commands;
+using zoft.TinyMvvmExtensions.Core.Commands;
 using zoft.TinyMvvmExtensions.ViewModels;
 
 namespace ClassicForms.ViewModels

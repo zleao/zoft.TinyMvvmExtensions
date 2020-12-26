@@ -158,6 +158,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions.Core\zoft.TinyMvvmExtensions.Core.csproj">
+      <Project>{d4f0be5d-9db3-4361-b82d-50c994933789}</Project>
+      <Name>zoft.TinyMvvmExtensions.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions.Forms\zoft.TinyMvvmExtensions.Forms.csproj">
       <Project>{21145761-c9b7-4ba5-8252-8ba92e4c3cc8}</Project>
       <Name>zoft.TinyMvvmExtensions.Forms</Name>

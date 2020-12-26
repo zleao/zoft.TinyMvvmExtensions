@@ -1,10 +1,10 @@
 ﻿using Acr.UserDialogs;
 using System.Linq;
 using System.Windows.Input;
-using zoft.TinyMvvmExtensions.Attributes;
-using zoft.TinyMvvmExtensions.Commands;
-using zoft.TinyMvvmExtensions.Extensions;
-using zoft.TinyMvvmExtensions.ViewModels;
+using zoft.TinyMvvmExtensions.Core.Attributes;
+using zoft.TinyMvvmExtensions.Core.Commands;
+using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.ViewModels;
 
 namespace ClassicForms.ViewModels
 {

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions.Core\zoft.TinyMvvmExtensions.Core.csproj" />
     <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions.Forms\zoft.TinyMvvmExtensions.Forms.csproj" />
     <ProjectReference Include="..\..\..\zoft.TinyMvvmExtensions\zoft.TinyMvvmExtensions.csproj" />
   </ItemGroup>

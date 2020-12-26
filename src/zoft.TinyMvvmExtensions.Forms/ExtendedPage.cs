@@ -14,9 +14,9 @@ using zoft.NotificationService.Messages.Base;
 using zoft.NotificationService.Messages.OneWay;
 using zoft.NotificationService.Messages.TwoWay.Question;
 using zoft.NotificationService.Messages.TwoWay.Result;
-using zoft.TinyMvvmExtensions.Extensions;
+using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.WeakSubscription;
 using zoft.TinyMvvmExtensions.ViewModels;
-using zoft.TinyMvvmExtensions.WeakSubscription;
 
 namespace zoft.TinyMvvmExtensions.Forms
 {

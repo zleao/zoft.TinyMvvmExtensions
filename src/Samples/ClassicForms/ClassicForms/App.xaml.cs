@@ -6,7 +6,7 @@ using TinyMvvm.Forms;
 using TinyMvvm.IoC;
 using Xamarin.Forms;
 using zoft.NotificationService;
-using zoft.TinyMvvmExtensions.ViewModels;
+using zoft.TinyMvvmExtensions.Core.ViewModels;
 
 namespace ClassicForms
 {
