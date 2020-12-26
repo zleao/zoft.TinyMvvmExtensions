@@ -64,7 +64,7 @@ namespace ClassicForms.ViewModels
         private async Task OnDelayedNotificationAsync()
         {
             await NotificationManager.DelayedPublishSuccessNotificationAsync("Delayed notification sent by NotificationsViewModel", NotificationModeEnum.MessageBox, _mainViewModelContext);
-            await NotificationManager.PublishInfoNotificationAsync("Go back to the Main to be able to see the delayed notification work his/her magic", NotificationModeEnum.MessageBox);
+            await NotificationManager.PublishInfoNotificationAsync("Go to Home page to be able to see the delayed notification work his/her magic", NotificationModeEnum.MessageBox);
         }
 
         #endregion
