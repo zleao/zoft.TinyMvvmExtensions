@@ -24,6 +24,7 @@ namespace ClassicForms.ViewModels
                 new MenuOption ("Bindings Test", nameof(BindingsTestPage)),
                 new MenuOption ("Validations", nameof(ValidationsPage)),
                 new MenuOption ("Notifications", nameof(NotificationsPage)),
+                new MenuOption ("Localization", nameof(LocalizationPage)),
             });
         }
 

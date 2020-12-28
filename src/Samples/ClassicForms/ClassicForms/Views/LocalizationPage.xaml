@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:ExtendedPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:mvvm="clr-namespace:zoft.TinyMvvmExtensions.Forms;assembly=zoft.TinyMvvmExtensions.Forms"
+                   xmlns:vm="clr-namespace:ClassicForms.ViewModels"
+                   xmlns:i18n="clr-namespace:zoft.TinyMvvmExtensions.Localization;assembly=zoft.TinyMvvmExtensions.Forms"
+                   x:Class="ClassicForms.Views.LocalizationPage" x:TypeArguments="vm:LocalizationViewModel"
+                   Title="{i18n:Translate LocalizationViewModel_Page_Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Picker ItemsSource="{Binding SupportedLanguages}" 
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center"
+                    SelectedItem="{Binding SelectedLanguage}"/>
+            <Label Text="{i18n:Translate LocalizationViewModel_Label_Sample1}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</mvvm:ExtendedPage>

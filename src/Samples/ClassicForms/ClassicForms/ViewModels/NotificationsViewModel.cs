@@ -4,6 +4,7 @@ using zoft.NotificationService;
 using zoft.NotificationService.Messages;
 using zoft.NotificationService.Messages.TwoWay.Question;
 using zoft.TinyMvvmExtensions.Core.Commands;
+using zoft.TinyMvvmExtensions.Core.Localization;
 using zoft.TinyMvvmExtensions.ViewModels;
 
 namespace ClassicForms.ViewModels
@@ -26,8 +27,8 @@ namespace ClassicForms.ViewModels
 
         #region Constructor
 
-        public NotificationsViewModel(INotificationService notificationManager)
-            : base(notificationManager)
+        public NotificationsViewModel(INotificationService notificationManager, ILocalizationService localizationService)
+            : base(notificationManager, localizationService)
         {
             ErrorNotificationCommand = new AsyncCommand(OnErrorNotificationAsync);
             QuestionNotificationCommand = new AsyncCommand(OnQuestionNotificationAsync);

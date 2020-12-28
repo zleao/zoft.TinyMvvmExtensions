@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using ClassicForms.Resources;
+using System.Globalization;
 using System.Reflection;
 using TinyMvvm;
 using TinyMvvm.Autofac;
@@ -6,6 +8,7 @@ using TinyMvvm.Forms;
 using TinyMvvm.IoC;
 using Xamarin.Forms;
 using zoft.NotificationService;
+using zoft.TinyMvvmExtensions.Core.Localization;
 using zoft.TinyMvvmExtensions.Core.ViewModels;
 
 namespace ClassicForms
@@ -34,8 +37,10 @@ namespace ClassicForms
 
             containerBuilder.RegisterType<NotificationManager>().As<INotificationService>().SingleInstance();
 
+            containerBuilder.RegisterInstance<ILocalizationService>(new LocalizationService(AppResource.ResourceManager, CultureInfo.InvariantCulture));
+
             var container = containerBuilder.Build();
-            
+
             Resolver.SetResolver(new AutofacResolver(container));
 
             navigationHelper.SetRootView(nameof(MainPage), false);
