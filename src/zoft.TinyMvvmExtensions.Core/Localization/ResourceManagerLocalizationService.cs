@@ -12,7 +12,7 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
     /// Localization service that uses <see cref="ResourceManager"/> as the source for the text
     /// </summary>
     /// <seealso cref="zoft.TinyMvvmExtensions.Core.Localization.ILocalizationService" />
-    public class LocalizationService : ILocalizationService
+    public class ResourceManagerLocalizationService : ILocalizationService
     {
         /// <summary>
         /// Occurs when a property value changes.
@@ -32,23 +32,23 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         public CultureInfo CurrentCulture => _currentCulture;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceFileNamespace">The resource file namespace.</param>
         /// <param name="resourceAssembly">The resource assembly.</param>
-        public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly)
+        public ResourceManagerLocalizationService(string resourceFileNamespace, Assembly resourceAssembly)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))))
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceFileNamespace">The resource file namespace.</param>
         /// <param name="resourceAssembly">The resource assembly.</param>
         /// <param name="languageCultureName">Name of the language culture.</param>
-        public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly, string languageCultureName)
+        public ResourceManagerLocalizationService(string resourceFileNamespace, Assembly resourceAssembly, string languageCultureName)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))),
                    languageCultureName)
@@ -56,12 +56,12 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceFileNamespace">The resource file namespace.</param>
         /// <param name="resourceAssembly">The resource assembly.</param>
         /// <param name="languageCultureInfo">The language culture information.</param>
-        public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly, CultureInfo languageCultureInfo)
+        public ResourceManagerLocalizationService(string resourceFileNamespace, Assembly resourceAssembly, CultureInfo languageCultureInfo)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))),
                    languageCultureInfo)
@@ -69,20 +69,20 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceManager">The resource manager.</param>
-        public LocalizationService(ResourceManager resourceManager)
+        public ResourceManagerLocalizationService(ResourceManager resourceManager)
             : this(resourceManager, CultureInfo.CurrentUICulture)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceManager">The resource manager.</param>
         /// <param name="languageCultureName">Name of the language culture.</param>
-        public LocalizationService(ResourceManager resourceManager, string languageCultureName)
+        public ResourceManagerLocalizationService(ResourceManager resourceManager, string languageCultureName)
         {
             _resourceManager = resourceManager.ThrowIfNull(nameof(resourceManager));
 
@@ -90,11 +90,11 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
         /// </summary>
         /// <param name="resourceManager">The resource manager.</param>
         /// <param name="languageCultureInfo">The language culture information.</param>
-        public LocalizationService(ResourceManager resourceManager, CultureInfo languageCultureInfo)
+        public ResourceManagerLocalizationService(ResourceManager resourceManager, CultureInfo languageCultureInfo)
         {
             _resourceManager = resourceManager.ThrowIfNull(nameof(resourceManager));
 

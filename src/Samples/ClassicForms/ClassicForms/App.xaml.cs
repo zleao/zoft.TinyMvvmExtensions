@@ -37,7 +37,7 @@ namespace ClassicForms
 
             containerBuilder.RegisterType<NotificationManager>().As<INotificationService>().SingleInstance();
 
-            containerBuilder.RegisterInstance<ILocalizationService>(new LocalizationService(AppResource.ResourceManager, CultureInfo.InvariantCulture));
+            containerBuilder.RegisterInstance<ILocalizationService>(new ResourceManagerLocalizationService(AppResource.ResourceManager, CultureInfo.InvariantCulture));
 
             var container = containerBuilder.Build();
 
