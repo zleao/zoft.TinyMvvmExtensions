@@ -18,7 +18,7 @@ namespace ClassicForms.ViewModels
         }
         private SupportedLanguage _selectedLanguage;
 
-        public LocalizationViewModel(INotificationService notificationManager, ILocalizationService localizationService) 
+        public LocalizationViewModel(INotificationService notificationManager, ILocalizationService localizationService)
             : base(notificationManager, localizationService)
         {
             SupportedLanguages = new List<SupportedLanguage>
@@ -30,13 +30,16 @@ namespace ClassicForms.ViewModels
             SelectedLanguage = SupportedLanguages.Find(l => l.Culture == LocalizationService.CurrentCulture) ?? SupportedLanguages[0];
         }
 
+#pragma warning disable IDE0051 // Remove unused private members
         [DependsOn(nameof(SelectedLanguage))]
         private void SetLanguage()
+
         {
             if (SelectedLanguage != null)
             {
                 LocalizationService.SetLanguage(SelectedLanguage.Culture);
             }
         }
+#pragma warning restore IDE0051 // Remove unused private members
     }
 }

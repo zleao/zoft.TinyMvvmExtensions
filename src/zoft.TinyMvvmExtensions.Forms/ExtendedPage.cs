@@ -24,7 +24,7 @@ namespace zoft.TinyMvvmExtensions.Forms
     {
         #region Fields
 
-        private volatile IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
+        private readonly IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
 
         private volatile NotifyPropertyChangedEventSubscription _propertyChangedSubscription;
 
@@ -217,19 +217,13 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         protected NotificationTwoWayAnswersEnum ConvertBool2NotificationTwoWayAnswersEnum(bool value, NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
-            switch (possibleAnswers)
+            return possibleAnswers switch
             {
-                case NotificationTwoWayAnswersGroupEnum.Ok:
-                    return value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Unknown;
-
-                case NotificationTwoWayAnswersGroupEnum.YesNo:
-                    return value ? NotificationTwoWayAnswersEnum.Yes : NotificationTwoWayAnswersEnum.No;
-
-                case NotificationTwoWayAnswersGroupEnum.OkCancel:
-                    return value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Cancel;
-            }
-
-            return NotificationTwoWayAnswersEnum.Unknown;
+                NotificationTwoWayAnswersGroupEnum.Ok => value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Unknown,
+                NotificationTwoWayAnswersGroupEnum.YesNo => value ? NotificationTwoWayAnswersEnum.Yes : NotificationTwoWayAnswersEnum.No,
+                NotificationTwoWayAnswersGroupEnum.OkCancel => value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Cancel,
+                _ => NotificationTwoWayAnswersEnum.Unknown,
+            };
         }
 
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
@@ -331,7 +325,7 @@ namespace zoft.TinyMvvmExtensions.Forms
     {
         #region Fields
 
-        private volatile IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
+        private readonly IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
 
         private volatile NotifyPropertyChangedEventSubscription _propertyChangedSubscription;
 
@@ -345,7 +339,7 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <value>
         /// The notification manager.
         /// </value>
-        protected INotificationService NotificationManager => _notificationManager ?? (_notificationManager = Resolver.Resolve<INotificationService>());
+        protected INotificationService NotificationManager => _notificationManager ??= Resolver.Resolve<INotificationService>();
         private INotificationService _notificationManager;
 
         #endregion
@@ -524,19 +518,13 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         protected NotificationTwoWayAnswersEnum ConvertBool2NotificationTwoWayAnswersEnum(bool value, NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
-            switch (possibleAnswers)
+            return possibleAnswers switch
             {
-                case NotificationTwoWayAnswersGroupEnum.Ok:
-                    return value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Unknown;
-
-                case NotificationTwoWayAnswersGroupEnum.YesNo:
-                    return value ? NotificationTwoWayAnswersEnum.Yes : NotificationTwoWayAnswersEnum.No;
-
-                case NotificationTwoWayAnswersGroupEnum.OkCancel:
-                    return value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Cancel;
-            }
-
-            return NotificationTwoWayAnswersEnum.Unknown;
+                NotificationTwoWayAnswersGroupEnum.Ok => value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Unknown,
+                NotificationTwoWayAnswersGroupEnum.YesNo => value ? NotificationTwoWayAnswersEnum.Yes : NotificationTwoWayAnswersEnum.No,
+                NotificationTwoWayAnswersGroupEnum.OkCancel => value ? NotificationTwoWayAnswersEnum.Ok : NotificationTwoWayAnswersEnum.Cancel,
+                _ => NotificationTwoWayAnswersEnum.Unknown,
+            };
         }
 
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
@@ -601,7 +589,7 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <param name="indexIfCancel">The index if cancel.</param>
         protected virtual async Task<int> ShowSimpleSelectionDialogAsync(string title, IList<string> options, int indexIfCancel = -1)
         {
-            var answer = await MainThread.InvokeOnMainThreadAsync(async () => 
+            var answer = await MainThread.InvokeOnMainThreadAsync(async () =>
                 await DisplayActionSheet(title,
                                          (ViewModel as ExtendedViewModel)?.LocalizationService.GetTextForKey("Common_Label_Cancel"),
                                          null,

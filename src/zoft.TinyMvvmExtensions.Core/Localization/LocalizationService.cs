@@ -11,9 +11,9 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
     public class LocalizationService : ILocalizationService
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         private readonly ResourceManager _resourceManager;
-        
+
         private CultureInfo _currentCulture;
         public CultureInfo CurrentCulture => _currentCulture;
 

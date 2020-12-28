@@ -21,9 +21,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
     {
         #region Fields
 
-        private volatile List<NotificationGenericMessage> _initialGenericMessages = new List<NotificationGenericMessage>();
-        private volatile IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
-        private volatile IList<LongRunningSubscriptionToken> _longRunningMessageTokens = new List<LongRunningSubscriptionToken>();
+        private readonly List<NotificationGenericMessage> _initialGenericMessages = new List<NotificationGenericMessage>();
+        private readonly IList<SubscriptionToken> _messageTokens = new List<SubscriptionToken>();
+        private readonly IList<LongRunningSubscriptionToken> _longRunningMessageTokens = new List<LongRunningSubscriptionToken>();
 
         #endregion
 
