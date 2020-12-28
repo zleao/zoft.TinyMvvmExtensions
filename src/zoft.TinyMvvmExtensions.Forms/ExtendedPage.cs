@@ -234,14 +234,14 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
-            if (BindingContext is ExtendedViewModel)
+            if (BindingContext is ExtendedViewModel myVm)
             {
-                var posBtnName = "Ok";
-                var negBtnName = "Cancel";
+                var posBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Ok");
+                var negBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Cancel");
                 if (possibleAnswers == NotificationTwoWayAnswersGroupEnum.YesNo)
                 {
-                    posBtnName = "Yes";
-                    negBtnName = "No";
+                    posBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Yes");
+                    negBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_No");
                 }
 
                 return new List<string>() { posBtnName, negBtnName };
@@ -257,15 +257,15 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <returns></returns>
         protected virtual string GetTitleFromSeverity(NotificationSeverityEnum severity)
         {
-            if (BindingContext is ExtendedViewModel)
+            if (BindingContext is ExtendedViewModel myVm)
             {
                 return severity switch
                 {
-                    NotificationSeverityEnum.Error => "Error",
-                    NotificationSeverityEnum.Success => "Success",
-                    NotificationSeverityEnum.Info => "Information",
-                    NotificationSeverityEnum.Warning => "Warning",
-                    _ => "Message",
+                    NotificationSeverityEnum.Error => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Error"),
+                    NotificationSeverityEnum.Success => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Success"),
+                    NotificationSeverityEnum.Info => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Information"),
+                    NotificationSeverityEnum.Warning => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Warning"),
+                    _ => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Message"),
                 };
             }
 
@@ -294,7 +294,11 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <param name="indexIfCancel">The index if cancel.</param>
         protected virtual async Task<int> ShowSimpleSelectionDialogAsync(string title, IList<string> options, int indexIfCancel = -1)
         {
-            var answer = await MainThread.InvokeOnMainThreadAsync(async () => await DisplayActionSheet(title, "Cancel", null, options.ToArray())).ConfigureAwait(false);
+            var answer = await MainThread.InvokeOnMainThreadAsync(async () =>
+                await DisplayActionSheet(title,
+                                         (BindingContext as ExtendedViewModel)?.LocalizationService.GetTextForKey("Common_Label_Cancel"),
+                                         null,
+                                         options.ToArray())).ConfigureAwait(false);
             var selectedIndex = indexIfCancel;
 
             if (!answer.IsNullOrEmpty())
@@ -315,7 +319,7 @@ namespace zoft.TinyMvvmExtensions.Forms
         protected virtual async Task ShowMessageBoxAsync(string message, NotificationSeverityEnum severity)
         {
             var title = GetTitleFromSeverity(severity);
-            var buttonOk = "Ok";
+            var buttonOk = (BindingContext as ExtendedViewModel)?.LocalizationService.GetTextForKey("Common_Label_Ok");
 
             await MainThread.InvokeOnMainThreadAsync(async () => await DisplayAlert(title, message, buttonOk)).ConfigureAwait(false);
         }
@@ -537,14 +541,14 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
-            if (ViewModel is ExtendedViewModel)
+            if (ViewModel is ExtendedViewModel myVm)
             {
-                var posBtnName = "Ok";
-                var negBtnName = "Cancel";
+                var posBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Ok");
+                var negBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Cancel");
                 if (possibleAnswers == NotificationTwoWayAnswersGroupEnum.YesNo)
                 {
-                    posBtnName = "Yes";
-                    negBtnName = "No";
+                    posBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_Yes");
+                    negBtnName = myVm.LocalizationService.GetTextForKey("Common_Label_No");
                 }
 
                 return new List<string>() { posBtnName, negBtnName };
@@ -560,15 +564,15 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <returns></returns>
         protected virtual string GetTitleFromSeverity(NotificationSeverityEnum severity)
         {
-            if (ViewModel is ExtendedViewModel)
+            if (ViewModel is ExtendedViewModel myVm)
             {
                 return severity switch
                 {
-                    NotificationSeverityEnum.Error => "Error",
-                    NotificationSeverityEnum.Success => "Success",
-                    NotificationSeverityEnum.Info => "Information",
-                    NotificationSeverityEnum.Warning => "Warning",
-                    _ => "Message",
+                    NotificationSeverityEnum.Error => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Error"),
+                    NotificationSeverityEnum.Success => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Success"),
+                    NotificationSeverityEnum.Info => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Information"),
+                    NotificationSeverityEnum.Warning => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Warning"),
+                    _ => myVm.LocalizationService.GetTextForKey("Common_Label_Dialog_Title_Message"),
                 };
             }
 
@@ -597,7 +601,11 @@ namespace zoft.TinyMvvmExtensions.Forms
         /// <param name="indexIfCancel">The index if cancel.</param>
         protected virtual async Task<int> ShowSimpleSelectionDialogAsync(string title, IList<string> options, int indexIfCancel = -1)
         {
-            var answer = await MainThread.InvokeOnMainThreadAsync(async () => await DisplayActionSheet(title, "Cancel", null, options.ToArray())).ConfigureAwait(false);
+            var answer = await MainThread.InvokeOnMainThreadAsync(async () => 
+                await DisplayActionSheet(title,
+                                         (ViewModel as ExtendedViewModel)?.LocalizationService.GetTextForKey("Common_Label_Cancel"),
+                                         null,
+                                         options.ToArray())).ConfigureAwait(false);
             var selectedIndex = indexIfCancel;
 
             if (!answer.IsNullOrEmpty())
@@ -618,7 +626,7 @@ namespace zoft.TinyMvvmExtensions.Forms
         protected virtual async Task ShowMessageBoxAsync(string message, NotificationSeverityEnum severity)
         {
             var title = GetTitleFromSeverity(severity);
-            var buttonOk = "Ok";
+            var buttonOk = (ViewModel as ExtendedViewModel)?.LocalizationService.GetTextForKey("Common_Label_Ok");
 
             await MainThread.InvokeOnMainThreadAsync(async () => await DisplayAlert(title, message, buttonOk)).ConfigureAwait(false);
         }

@@ -11,6 +11,7 @@ using zoft.NotificationService.Messages.OneWay;
 using zoft.NotificationService.Messages.TwoWay;
 using zoft.NotificationService.Messages.TwoWay.Result;
 using zoft.TinyMvvmExtensions.Core.Extensions;
+using zoft.TinyMvvmExtensions.Core.Localization;
 using zoft.TinyMvvmExtensions.Core.ViewModels;
 using zoft.TinyMvvmExtensions.Models;
 
@@ -57,9 +58,10 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         /// INotificationService
         /// or
         /// IMvxLanguageBinder</exception>
-        protected ExtendedViewModel(INotificationService notificationManager)
+        protected ExtendedViewModel(INotificationService notificationManager, ILocalizationService localizationService)
         {
             NotificationManager = notificationManager.ThrowIfNull(nameof(notificationManager));
+            LocalizationService = localizationService.ThrowIfNull(nameof(localizationService));
         }
 
         #endregion
@@ -177,6 +179,15 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         #region Publish
 
         /// <summary>
+        /// Publishes an one-way under construction message.
+        /// The assumes that the text resource 'Message_Info_UnderConstruction' is correctly defined for the current language
+        /// </summary>
+        protected virtual Task PublishUnderConstructionNotificationAsync()
+        {
+            return NotificationManager.PublishInfoNotificationAsync(LocalizationService.GetTextForKey("Message_Info_UnderConstruction"));
+        }
+
+        /// <summary>
         /// Publishes a two way input dialog notification. Used to get a string input from the user
         /// </summary>
         /// <param name="message">The message.</param>
@@ -190,12 +201,18 @@ namespace zoft.TinyMvvmExtensions.ViewModels
 
         #endregion
 
+        #region TextSource
+
+        public ILocalizationService LocalizationService { get; }
+
+        #endregion
+
         #region ViewModel Lifecycle
 
         public override Task Initialize()
         {
             SubscribeLongRunningMessageEvents();
-            
+
             return base.Initialize();
         }
 
