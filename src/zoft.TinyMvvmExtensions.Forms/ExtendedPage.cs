@@ -20,6 +20,10 @@ using zoft.TinyMvvmExtensions.ViewModels;
 
 namespace zoft.TinyMvvmExtensions.Forms
 {
+    /// <summary>
+    /// Base page with that matches the <see cref="ExtendedViewModel"/>, providing out-of-the-box functionality for Notifications and Localization
+    /// </summary>
+    /// <seealso cref="TinyMvvm.Forms.ViewBase" />
     public class ExtendedPage : ViewBase
     {
         #region Fields
@@ -215,6 +219,12 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         #region Generic Methods
 
+        /// <summary>
+        /// Converts answer of a TwoWay notification message, based on the bool value returned.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <param name="possibleAnswers">The possible answers.</param>
+        /// <returns></returns>
         protected NotificationTwoWayAnswersEnum ConvertBool2NotificationTwoWayAnswersEnum(bool value, NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
             return possibleAnswers switch
@@ -226,6 +236,11 @@ namespace zoft.TinyMvvmExtensions.Forms
             };
         }
 
+        /// <summary>
+        /// Gets the name of the buttons to apply to a TwoWay message type.
+        /// </summary>
+        /// <param name="possibleAnswers">The possible answers.</param>
+        /// <returns></returns>
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
             if (BindingContext is ExtendedViewModel myVm)
@@ -321,6 +336,11 @@ namespace zoft.TinyMvvmExtensions.Forms
         #endregion
     }
 
+    /// <summary>
+    /// Base page with that matches the <see cref="ExtendedViewModel"/>, providing out-of-the-box functionality for Notifications and Localization
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="TinyMvvm.Forms.ViewBase" />
     public class ExtendedPage<T> : ViewBase<T> where T : IViewModelBase
     {
         #region Fields
@@ -516,6 +536,12 @@ namespace zoft.TinyMvvmExtensions.Forms
 
         #region Generic Methods
 
+        /// <summary>
+        /// Converts answer of a TwoWay notification message, based on the bool value returned.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <param name="possibleAnswers">The possible answers.</param>
+        /// <returns></returns>
         protected NotificationTwoWayAnswersEnum ConvertBool2NotificationTwoWayAnswersEnum(bool value, NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
             return possibleAnswers switch
@@ -527,6 +553,11 @@ namespace zoft.TinyMvvmExtensions.Forms
             };
         }
 
+        /// <summary>
+        /// Gets the name of the buttons to apply to a TwoWay message type.
+        /// </summary>
+        /// <param name="possibleAnswers">The possible answers.</param>
+        /// <returns></returns>
         protected List<string> GetButtonsName(NotificationTwoWayAnswersGroupEnum possibleAnswers)
         {
             if (ViewModel is ExtendedViewModel myVm)

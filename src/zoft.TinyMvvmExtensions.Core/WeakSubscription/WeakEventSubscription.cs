@@ -3,6 +3,12 @@ using System.Reflection;
 
 namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 {
+    /// <summary>
+    /// Base class for event weak subscriptions
+    /// </summary>
+    /// <typeparam name="TSource">The type of the source.</typeparam>
+    /// <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
+    /// <seealso cref="System.IDisposable" />
     public class WeakEventSubscription<TSource, TEventArgs> : IDisposable
         where TSource : class
     {
@@ -16,6 +22,12 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
         private readonly Delegate _ourEventHandler;
         private bool _subscribed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeakEventSubscription{TSource, TEventArgs}"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="sourceEventName">Name of the source event.</param>
+        /// <param name="targetEventHandler">The target event handler.</param>
         public WeakEventSubscription(
             TSource source,
             string sourceEventName,
@@ -24,6 +36,15 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeakEventSubscription{TSource, TEventArgs}"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="sourceEventInfo">The source event information.</param>
+        /// <param name="targetEventHandler">The target event handler.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// sourceEventInfo - missing source event info in WeakEventSubscription
+        /// </exception>
         protected WeakEventSubscription(
             TSource source,
             EventInfo sourceEventInfo,
@@ -46,17 +67,29 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
             AddEventHandler();
         }
 
+        /// <summary>
+        /// Creates the event handler.
+        /// </summary>
+        /// <returns></returns>
         protected virtual Delegate CreateEventHandler()
         {
             return new EventHandler<TEventArgs>(OnSourceEvent);
         }
 
+        /// <summary>
+        /// Gets the target object.
+        /// </summary>
+        /// <returns></returns>
         protected virtual object GetTargetObject()
         {
             return _targetReference.Target;
         }
 
-        //This is the method that will handle the event of source.
+        /// <summary>
+        /// This is the method that will handle the event of source
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event agrs instance containing the event data.</param>
         protected void OnSourceEvent(object sender, TEventArgs e)
         {
             var target = GetTargetObject();
@@ -70,12 +103,19 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -113,6 +153,11 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
         }
     }
 
+    /// <summary>
+    /// Base class for typed event weak subscriptions
+    /// </summary>
+    /// <typeparam name="TSource">The type of the source.</typeparam>
+    /// <seealso cref="System.IDisposable" />
     public class WeakEventSubscription<TSource> : IDisposable
         where TSource : class
     {
@@ -129,6 +174,12 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
 
         private bool _subscribed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeakEventSubscription{TSource}"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="sourceEventName">Name of the source event.</param>
+        /// <param name="targetEventHandler">The target event handler.</param>
         public WeakEventSubscription(
             TSource source,
             string sourceEventName,
@@ -137,6 +188,15 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeakEventSubscription{TSource}"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="sourceEventInfo">The source event information.</param>
+        /// <param name="targetEventHandler">The target event handler.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// sourceEventInfo - missing source event info in WeakEventSubscription
+        /// </exception>
         protected WeakEventSubscription(
             TSource source,
             EventInfo sourceEventInfo,
@@ -159,17 +219,29 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
             AddEventHandler();
         }
 
+        /// <summary>
+        /// Gets the target object.
+        /// </summary>
+        /// <returns></returns>
         protected virtual object GetTargetObject()
         {
             return _targetReference.Target;
         }
 
+        /// <summary>
+        /// Creates the event handler.
+        /// </summary>
+        /// <returns></returns>
         protected virtual Delegate CreateEventHandler()
         {
             return new EventHandler(OnSourceEvent);
         }
 
-        //This is the method that will handle the event of source.
+        /// <summary>
+        ///This is the method that will handle the event of source.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args instance containing the event data.</param>
         protected void OnSourceEvent(object sender, EventArgs e)
         {
             var target = GetTargetObject();
@@ -183,12 +255,19 @@ namespace zoft.TinyMvvmExtensions.Core.WeakSubscription
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

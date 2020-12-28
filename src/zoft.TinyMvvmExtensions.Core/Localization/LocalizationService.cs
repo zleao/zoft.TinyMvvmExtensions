@@ -8,21 +8,46 @@ using zoft.TinyMvvmExtensions.Core.Extensions;
 
 namespace zoft.TinyMvvmExtensions.Core.Localization
 {
+    /// <summary>
+    /// Localization service that uses <see cref="ResourceManager"/> as the source for the text
+    /// </summary>
+    /// <seealso cref="zoft.TinyMvvmExtensions.Core.Localization.ILocalizationService" />
     public class LocalizationService : ILocalizationService
     {
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        /// <returns></returns>
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ResourceManager _resourceManager;
 
         private CultureInfo _currentCulture;
+        /// <summary>
+        /// Gets the current culture being applied in the service when determining the text to show
+        /// </summary>
+        /// <value>
+        /// The current culture.
+        /// </value>
         public CultureInfo CurrentCulture => _currentCulture;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceFileNamespace">The resource file namespace.</param>
+        /// <param name="resourceAssembly">The resource assembly.</param>
         public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))))
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceFileNamespace">The resource file namespace.</param>
+        /// <param name="resourceAssembly">The resource assembly.</param>
+        /// <param name="languageCultureName">Name of the language culture.</param>
         public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly, string languageCultureName)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))),
@@ -30,6 +55,12 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceFileNamespace">The resource file namespace.</param>
+        /// <param name="resourceAssembly">The resource assembly.</param>
+        /// <param name="languageCultureInfo">The language culture information.</param>
         public LocalizationService(string resourceFileNamespace, Assembly resourceAssembly, CultureInfo languageCultureInfo)
             : this(new ResourceManager(resourceFileNamespace.ThrowIfNull(nameof(resourceFileNamespace)),
                                        resourceAssembly.ThrowIfNull(nameof(resourceAssembly))),
@@ -37,11 +68,20 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceManager">The resource manager.</param>
         public LocalizationService(ResourceManager resourceManager)
             : this(resourceManager, CultureInfo.CurrentUICulture)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceManager">The resource manager.</param>
+        /// <param name="languageCultureName">Name of the language culture.</param>
         public LocalizationService(ResourceManager resourceManager, string languageCultureName)
         {
             _resourceManager = resourceManager.ThrowIfNull(nameof(resourceManager));
@@ -49,6 +89,11 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
             SetLanguage(languageCultureName.ThrowIfNull(nameof(languageCultureName)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        /// <param name="resourceManager">The resource manager.</param>
+        /// <param name="languageCultureInfo">The language culture information.</param>
         public LocalizationService(ResourceManager resourceManager, CultureInfo languageCultureInfo)
         {
             _resourceManager = resourceManager.ThrowIfNull(nameof(resourceManager));
@@ -56,11 +101,26 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
             SetLanguage(languageCultureInfo.ThrowIfNull(nameof(languageCultureInfo)));
         }
 
+        /// <summary>
+        /// Gets the localized text associated with the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public string GetTextForKey(string key)
         {
             return _resourceManager.GetString(key, _currentCulture);
         }
 
+        /// <summary>
+        /// Sets the language to use in the service.
+        /// </summary>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="throwIfFail">if set to <c>true</c> [throw if fail].</param>
+        /// <exception cref="LocalizationLanguageNotSupported">
+        /// Language not supported ({cultureName})
+        /// or
+        /// Language not supported ({cultureName})
+        /// </exception>
         public void SetLanguage(string cultureName, bool throwIfFail = false)
         {
             CultureInfo newLanguageCultureInfo;
@@ -85,13 +145,26 @@ namespace zoft.TinyMvvmExtensions.Core.Localization
             SetLanguage(newLanguageCultureInfo);
         }
 
-        public void SetLanguage(CultureInfo languageCultureInfo, bool throwIfFail = false)
+        /// <summary>
+        /// Sets the language to use in the service.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <param name="throwIfFail">if set to <c>true</c> [throw if fail].</param>
+        public void SetLanguage(CultureInfo culture, bool throwIfFail = false)
         {
-            _currentCulture = languageCultureInfo;
+            _currentCulture = culture;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
 
+        /// <summary>
+        /// Gets the <see cref="System.String"/> with the specified key.
+        /// </summary>
+        /// <value>
+        /// The <see cref="System.String"/>.
+        /// </value>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public string this[string key] => GetTextForKey(key);
     }
 }

@@ -17,6 +17,10 @@ using zoft.TinyMvvmExtensions.Models;
 
 namespace zoft.TinyMvvmExtensions.ViewModels
 {
+    /// <summary>
+    /// Base VIewModel derived from <see cref="CoreViewModel"/>, with aditional implementations for Notifications and Localization
+    /// </summary>
+    /// <seealso cref="zoft.TinyMvvmExtensions.Core.ViewModels.CoreViewModel" />
     public class ExtendedViewModel : CoreViewModel
     {
         #region Fields
@@ -46,13 +50,10 @@ namespace zoft.TinyMvvmExtensions.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ExtendedViewModel" /> class.
         /// </summary>
-        /// <param name="textSource">The text source.</param>
-        /// <param name="textSourceCommon">The text source common.</param>
-        /// <param name="jsonConverter">The json converter.</param>
         /// <param name="notificationManager">The notification manager.</param>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="localizationService">The localization service.</param>
         /// <exception cref="System.NullReferenceException">IMvxJsonConverter
         /// or
         /// INotificationService
@@ -203,12 +204,22 @@ namespace zoft.TinyMvvmExtensions.ViewModels
 
         #region TextSource
 
+        /// <summary>
+        /// Gets the localization service.
+        /// </summary>
+        /// <value>
+        /// The localization service.
+        /// </value>
         public ILocalizationService LocalizationService { get; }
 
         #endregion
 
         #region ViewModel Lifecycle
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns></returns>
         public override Task Initialize()
         {
             SubscribeLongRunningMessageEvents();
@@ -216,6 +227,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Called when view is appearing
+        /// </summary>
         public override async Task OnAppearing()
         {
             SubscribeLongRunningMessageEvents();
@@ -225,6 +239,9 @@ namespace zoft.TinyMvvmExtensions.ViewModels
             await DoWorkAsync(OnViewShownAsync, isSilent: true).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Called when view is shown
+        /// </summary>
         protected virtual async Task OnViewShownAsync()
         {
             if (_initialGenericMessages.Count > 0)
@@ -243,6 +260,10 @@ namespace zoft.TinyMvvmExtensions.ViewModels
             }
         }
 
+        /// <summary>
+        /// Called when view is disappearing
+        /// </summary>
+        /// <returns></returns>
         public override Task OnDisappearing()
         {
             UnsubscribeMessageEvents();

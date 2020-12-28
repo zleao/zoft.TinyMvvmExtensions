@@ -104,7 +104,8 @@ namespace zoft.TinyMvvmExtensions.Core.Extensions
         /// Default validation Func used in the AddMissing methods
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="item"></param>
+        /// <param name="targetCollection">The target collection.</param>
+        /// <param name="item">The item.</param>
         /// <returns></returns>
         private static bool ShouldAddItem<T>(T[] targetCollection, T item)
         {
@@ -117,6 +118,7 @@ namespace zoft.TinyMvvmExtensions.Core.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
+        /// <param name="fallbackValue">The fallback value.</param>
         /// <returns></returns>
         public static int Count<T>(this ICollection<T> source, int fallbackValue)
         {

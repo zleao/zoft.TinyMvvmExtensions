@@ -75,6 +75,7 @@ namespace zoft.TinyMvvmExtensions.Core.Extensions
         /// <param name="source">The string to convert</param>
         /// <param name="format">The format to apply</param>
         /// <param name="provider">The culture-specific format</param>
+        /// <param name="fallbackValue">The fallback value.</param>
         /// <returns></returns>
         public static DateTime TryParseExact(this string source, string format, IFormatProvider provider, DateTime fallbackValue = default)
         {
