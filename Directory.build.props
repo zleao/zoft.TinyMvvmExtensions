@@ -18,10 +18,12 @@
     <DebugType>full</DebugType>
 
     <LangVersion>8.0</LangVersion>
+
+    <IsLibraryProject>$(MSBuildProjectName.Contains('zoft'))</IsLibraryProject>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(IsLibraryProject)' == 'true' ">
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSymbols>true</IncludeSymbols>
@@ -31,7 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(IsLibraryProject)' == 'true'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
