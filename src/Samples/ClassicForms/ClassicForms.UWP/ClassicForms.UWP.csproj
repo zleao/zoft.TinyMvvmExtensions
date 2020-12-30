@@ -148,10 +148,10 @@
       <Version>7.1.0.470</Version>
     </PackageReference>
     <PackageReference Include="TinyMvvm.Autofac">
-      <Version>3.0.1-pre3</Version>
+      <Version>3.0.1-pre4</Version>
     </PackageReference>
     <PackageReference Include="TinyMvvm.Forms">
-      <Version>3.0.1-pre3</Version>
+      <Version>3.0.1-pre4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.11" />

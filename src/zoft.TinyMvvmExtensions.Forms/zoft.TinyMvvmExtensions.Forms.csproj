@@ -19,7 +19,7 @@ For more info check the documentation</Description>
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="TinyMvvm.Forms" Version="3.0.1-pre3" />
+    <PackageReference Include="TinyMvvm.Forms" Version="3.0.1-pre4" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="zoft.NotificationService" Version="1.0.0" />
   </ItemGroup>
