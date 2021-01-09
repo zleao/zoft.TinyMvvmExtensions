@@ -1,6 +1,12 @@
+[![Build status](https://zleaopereira.visualstudio.com/CrossDevelopment/_apis/build/status/zoft.TinyMvvmExtensions)](https://zleaopereira.visualstudio.com/CrossDevelopment/_build/latest?definitionId=4)
+
+#### zoft.TinyMvvmExtensions [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions/)
+
+#### zoft.TinyMvvmExtensions.Core [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.Core.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions.Core/)
+
 # zoft.TinyMvvmExtensions
 
-Extension library built on top of the awesome TinyMvvm library. Similar apporach to what I've done in the [MvxExtensions](https://github.com/zleao/MvvmCross-Extensions/tree/master/Libraries/MvxExtensions) library. Provides extra functionalites for ViewModels.
+Extension library built on top of the awesome TinyMvvm library. Similar approach to what I've done in the [MvxExtensions](https://github.com/zleao/MvvmCross-Extensions/tree/master/Libraries/MvxExtensions) library. Provides extra functionalites for ViewModels.
 
 ### A bit of context:
 
@@ -10,4 +16,4 @@ A lot of this code comes from another library I've developed over the years ([Mv
 
 ##
 
-###Samples are comming to better explain how to use the library. In the meantime, you can check how to get started with [TinyMvvm](https://github.com/TinyStuff/TinyMvvm). There won't be to much changes to incorporate this library.
+### Samples are comming to better explain how to use the library. In the meantime, you can check how to get started with [TinyMvvm](https://github.com/TinyStuff/TinyMvvm). There won't be to much changes to incorporate this library.
