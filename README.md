@@ -1,8 +1,11 @@
 [![Build status](https://zleaopereira.visualstudio.com/CrossDevelopment/_apis/build/status/zoft.TinyMvvmExtensions)](https://zleaopereira.visualstudio.com/CrossDevelopment/_build/latest?definitionId=4)
 
-#### zoft.TinyMvvmExtensions [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions/)
+Nuget Package | Current Version
+--- | ---
+| zoft.TinyMvvmExtensions | [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions/)
+| zoft.TinyMvvmExtensions.Core | [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.Core.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions.Core/)
+| zoft.TinyMvvmExtensions.Forms | [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.Forms.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions.Forms/)
 
-#### zoft.TinyMvvmExtensions.Core [![NuGet](https://img.shields.io/nuget/v/zoft.TinyMvvmExtensions.Core.svg)](https://www.nuget.org/packages/zoft.TinyMvvmExtensions.Core/)
 
 # zoft.TinyMvvmExtensions
 
